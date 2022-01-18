@@ -22,7 +22,9 @@
         localStorage.setItem("state", state);
         localStorage.removeItem("codeVerifier");
         var currentURL = new URL(window.location);
-        var clientId = currentURL.searchParams.get("clientId");
+        // var clientId = currentURL.searchParams.get("clientId");
+        var clientId = process.env.REACT_APP_CLIENT_ID;
+        var tenantId = context.tid;
 
         var scope = currentURL.searchParams.get("scope");
 
@@ -44,7 +46,7 @@
         };
 
         let authorizeEndpoint = `https://login.microsoftonline.com/${
-          context.tid
+          tenantId
         }/oauth2/v2.0/authorize?${toQueryString(queryParams)}`;
         window.location.assign(authorizeEndpoint);
       });

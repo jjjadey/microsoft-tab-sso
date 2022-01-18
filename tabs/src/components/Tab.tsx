@@ -1,12 +1,14 @@
 import React from "react";
-import { Welcome } from "./sample/Welcome";
+import GraphClient from "./GraphClient";
+// import { Welcome } from "./sample/Welcome";
 
-var showFunction = Boolean(process.env.REACT_APP_FUNC_NAME);
+// var showFunction = Boolean(process.env.REACT_APP_FUNC_NAME);
 
 export default function Tab() {
   return (
     <div>
-      <Welcome showFunction={showFunction} />
+      <GraphClient />
+      {/* <Welcome showFunction={showFunction} /> */}
     </div>
   );
 }
