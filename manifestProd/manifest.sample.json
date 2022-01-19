@@ -1,0 +1,50 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.11/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.11",
+  "version": "1.0.0",
+  "id": "{{teamsAppId}}",
+  "packageName": "com.microsoft.teams.extension",
+  "developer": {
+    "name": "Teams App, Inc.",
+    "websiteUrl": "https://tab-sso-client.web.app",
+    "privacyUrl": "https://tab-sso-client.web.app/index.html#/privacy",
+    "termsOfUseUrl": "https://tab-sso-client.web.app/index.html#/termsofuse"
+  },
+  "icons": {
+    "color": "resources/color.png",
+    "outline": "resources/outline.png"
+  },
+  "name": {
+    "short": "myTabSso-prod",
+    "full": "myTabSso-prod"
+  },
+  "description": {
+    "short": "Short description of myTabSso-prod",
+    "full": "Full description of myTabSso-prod"
+  },
+  "accentColor": "#FFFFFF",
+  "bots": [],
+  "composeExtensions": [],
+  "configurableTabs": [
+    {
+      "configurationUrl": "https://tab-sso-client.web.app/index.html#/config",
+      "canUpdateConfiguration": true,
+      "scopes": ["team", "groupchat"]
+    }
+  ],
+  "staticTabs": [
+    {
+      "entityId": "index",
+      "name": "Personal Tab",
+      "contentUrl": "https://tab-sso-client.web.app/index.html#/tab",
+      "websiteUrl": "https://tab-sso-client.web.app/index.html#/tab",
+      "scopes": ["personal"]
+    }
+  ],
+  "permissions": ["identity", "messageTeamMembers"],
+  "validDomains": [],
+  "webApplicationInfo": {
+    "id": "{{clientId}}",
+    "resource": "{{{applicationIdUris}}}"
+  }
+}
