@@ -22,11 +22,12 @@
         localStorage.setItem("state", state);
         localStorage.removeItem("codeVerifier");
         var currentURL = new URL(window.location);
-        // var clientId = currentURL.searchParams.get("clientId");
-        var clientId = process.env.REACT_APP_CLIENT_ID;
+        // var clientId = currentURL.searchParams.get("clientId"); //null 
+        var clientId = "{{your app client id}}";        
+        // var clientId = process.env.REACT_APP_CLIENT_ID;
         var tenantId = context.tid;
-
-        var scope = currentURL.searchParams.get("scope");
+        // var scope = currentURL.searchParams.get("scope");
+        var scope = ["User.Read"];
 
         var originalCode = _guid();
         var codeChallenge = await pkceChallengeFromVerifier(originalCode);
