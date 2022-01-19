@@ -1,8 +1,8 @@
 # About project: Tab app with microsoft graph api
 
 This project is tabs app add-in for Microsoft Teams.
-Client side: React
-Server side: NodeJS
+* Client side: React
+* Server side: NodeJS
 
 # How to use this Teams Tab app
 
@@ -35,20 +35,19 @@ You can hit the `F5` key in VS Code (Teams tookit will auto create new app and s
 * copy `.env.sample` and rename file to `.env`. Then paste your App id in `REACT_APP_CLIENT_ID`
 ![appid](https://user-images.githubusercontent.com/47839144/150120152-4c2c4ba6-48f5-424c-a946-4261b1742a6a.jpg)
 
-
-
-4. Edit `.env` for server
+4. Upadate `Application (client) ID` in `auth-start.html` (client side) 
+5. Edit `.env` for server
 
 * Open folder `server`
 * Open your app in 2. and copy `Certificates value` (3rd column in below figure). If you can't copy value, you can create new one (click `New client secret`)
 * copy `.env.sample` and rename file to `.env`. Then paste your App id in `CLIENT_ID` and Certificates value in `CLIENT_SECRET`
 ![cer](https://user-images.githubusercontent.com/47839144/150120677-ff5e5dde-d39b-4c81-b079-3d9bd67a0ae0.jpg)
 
-5. Run client side (tabs) in local
+6. Run client side (tabs) in local
 `cd tabs` and `npm run start`
-6. Run server side in local
+7. Run server side in local
 `cd server` and `npm run start`
-7. Upload Manifest
+8. Upload Manifest
     * go to folder `manifest`
     * copy file `manifest.sample.json` and rename to `manifeest.json`
     * cd .fx/config/localSetting.json and copy value
@@ -120,3 +119,36 @@ Once deployed, you may want to distribute your application to your organization'
 
 * From Visual Studio Code: open the Teams Toolkit and click `Publish to Teams` or open the command palette and select: `Teams: Publish to Teams`.
 * From TeamsFx CLI: run command `teamsfx publish` in your project directory.
+
+# How to run server side with Ngrok
+1. `cd server` and `npm run start`
+2. Install ngrok and run `ngrok http 55000`
+![ngrok](https://user-images.githubusercontent.com/47839144/150123726-c41e2eb2-d50a-4dc2-b071-ddc7c25f8d7e.jpg)
+3. Copy your path forwarding `https://xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx.ngrok.io`
+
+# How to host client side on Firebase
+[Firebase Tutorial - How to Set Up and Deploy with ReactJS](https://www.youtube.com/watch?v=1wZw7RvXPRU)
+1. `cd tabs` 
+2. Copy `.env.sample.production` and rename to `.env.production`
+3. Change `REACT_APP_TEAMSFX_ENDPOINT` to ngrok path forwarding
+4. `npm run build:production`
+5. `firebase deploy`
+
+NOTE: If you use free version ngrok, the path was change after you terminate the server side. 
+So you must update `.env.production`, `npm run build:production`, and deploy
+
+
+# How to test on production
+1. `cd manifestProd`
+2. copy file `manifest.sample.json` and rename to `manifest.json`
+3. edit `https://tab-sso-client.web.app` to your client domain
+4. edit `webApplicationInfo.resource` to  `api://{your-client-domain}/{your-app-client-id-from-portalAzure}` 
+such as `api://tab-sso-client.web.app/84a71487-45a8-4504-8aa5-e5xxxxxxxxxx`
+5. Add `redirectUri` in Portal Azure
+![redirectUri](https://user-images.githubusercontent.com/47839144/150128024-c278e6fc-25da-45b2-85d7-245be227c1b3.jpg)
+NOTE: It must be your client domain
+
+6. Update `Expose API` in portal Azure. The value be the same as 4.
+![exposeApi](https://user-images.githubusercontent.com/47839144/150125884-32c5f8a4-fdd1-4e1a-a340-a45f7020dd72.jpg)
+NOTE: If `webApplicationInfo.resource` not be the same as `expose api` in azure portal, the error resourceDisabled was found.
+7. Compress manifefst to zip and upload in MS Teams for testing.
