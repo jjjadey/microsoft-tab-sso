@@ -59,7 +59,7 @@ app.get('/modules/env.js', (req, res) => {
 app.use(express.static('client'));
 
 //start listening to server side calls
-const PORT = process.env.PORT || 53000;
+const PORT = process.env.PORT || 55000;
 app.listen(PORT, () => {
   console.log(`Server is Running on Port ${PORT}`);
 });
