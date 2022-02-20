@@ -1,14 +1,8 @@
 # About project: Tab app with microsoft graph api
 
 This project is tabs app add-in for Microsoft Teams.
-* Client side: React
+* Client side: ReactJS
 * Server side: NodeJS
-
-# How to use this Teams Tab app
-
-> Important: Please be advised that access tokens are stored in sessionStorage for you by default. This can make it possible for malicious code in your app (or code pasted into a console on your page) to access APIs at the same privilege level as your client application. Please ensure you only request the minimum necessary scopes from your client application, and perform any sensitive operations from server side code that your client has to authenticate with.
-
-Microsoft Teams supports the ability to run web-based UI inside "custom tabs" that users can install either for just themselves (personal tabs) or within a team or group chat context.
 
 ## Prerequisites
 
@@ -66,60 +60,6 @@ You can hit the `F5` key in VS Code (Teams tookit will auto create new app and s
 * npm run installAll
 * hitting the `F5` key in Visual Studio Code.
 
-### Debug
-
-* From Visual Studio Code: Start debugging the project by hitting the `F5` key in Visual Studio Code.
-* Alternatively use the `Run and Debug Activity Panel` in Visual Studio Code and click the `Run and Debug` green arrow button.
-* From TeamsFx CLI: Start debugging the project by executing the command `teamsfx preview --local` in your project directory.
-
-### Edit the manifest
-
-You can find the Teams app manifest in `templates/appPackage` folder. The folder contains two manifest files:
-
-* `manifest.local.template.json`: Manifest file for Teams app running locally.
-* `manifest.remote.template.json`: Manifest file for Teams app running remotely (After deployed to Azure).
-
-Both files contain template arguments with `{...}` statements which will be replaced at build time. You may add any extra properties or permissions you require to this file. See the [schema reference](https://docs.microsoft.com/en-us/microsoftteams/platform/resources/schema/manifest-schema) for more information.
-
-### Deploy to Azure
-
-Deploy your project to Azure by following these steps:
-
-| From Visual Studio Code | From TeamsFx CLI |
-| ----------------------- | ---------------- |
-| <ul><li>Open Teams Toolkit, and sign into Azure by clicking the `Sign in to Azure` under the `ACCOUNTS` section from sidebar.</li><li>After you signed in, select a subscription under your account.</li><li>Open the Teams Toolkit and click `Provision in the cloud` from DEVELOPMENT section or open the command palette and select: `Teams: Provision in the cloud`.</li><li>Open the Teams Toolkit and click `Deploy to the cloud` or open the command palette and select: `Teams: Deploy to the cloud`.</li></ul> | <ul><li>Run command `teamsfx account login azure`.</li><li>Run command `teamsfx account set --subscription <your-subscription-id>`.</your-subscription-id></li><li>Run command `teamsfx provision`.</li><li>Run command: `teamsfx deploy`.</li></ul> |
-
-> Note: Provisioning and deployment may incur charges to your Azure Subscription.
-
-### Preview
-
-Once the provisioning and deployment steps are finished, you can preview your app:
-
-* From Visual Studio Code
-    1. Open the `Run and Debug Activity Panel`.
-    2. Select `Launch Remote (Edge)` or `Launch Remote (Chrome)` from the launch configuration drop-down.
-    3. Press the Play (green arrow) button to launch your app - now running remotely from Azure.
-* From TeamsFx CLI: execute `teamsfx preview --remote` in your project directory to launch your application.
-
-### Validate manifest file
-
-To check that your manifest file is valid:
-
-* From Visual Studio Code: open the Teams Toolkit and click `Validate manifest file` or open the command palette and select: `Teams: Validate manifest file`.
-* From TeamsFx CLI: run command `teamsfx validate` in your project directory.
-
-### Package
-
-* From Visual Studio Code: open the command palette and select `Teams: Zip Teams metadata package`.
-* Alternatively, from the command line run `teamsfx package` in the project directory.
-
-### Publish to Teams
-
-Once deployed, you may want to distribute your application to your organization's internal app store in Teams. Your app will be submitted for admin approval.
-
-* From Visual Studio Code: open the Teams Toolkit and click `Publish to Teams` or open the command palette and select: `Teams: Publish to Teams`.
-* From TeamsFx CLI: run command `teamsfx publish` in your project directory.
-
 # How to run server side with Ngrok
 1. `cd server` and `npm run start`
 2. Install ngrok and run `ngrok http 55000`
@@ -152,3 +92,30 @@ NOTE: It must be your client domain
 ![exposeApi](https://user-images.githubusercontent.com/47839144/150125884-32c5f8a4-fdd1-4e1a-a340-a45f7020dd72.jpg)
 NOTE: If `webApplicationInfo.resource` not be the same as `expose api` in azure portal, the error resourceDisabled was found.
 7. Compress manifefst to zip and upload in MS Teams for testing.
+
+
+## Edit the manifest
+
+You can find the Teams app manifest in `templates/appPackage` folder. The folder contains two manifest files:
+
+* `manifest.local.template.json`: Manifest file for Teams app running locally.
+* `manifest.remote.template.json`: Manifest file for Teams app running remotely (After deployed to Azure).
+
+Both files contain template arguments with `{...}` statements which will be replaced at build time. You may add any extra properties or permissions you require to this file. See the [schema reference](https://docs.microsoft.com/en-us/microsoftteams/platform/resources/schema/manifest-schema) for more information.
+
+## Deploy to Azure
+
+Deploy your project to Azure by following these steps:
+
+| From Visual Studio Code | From TeamsFx CLI |
+| ----------------------- | ---------------- |
+| <ul><li>Open Teams Toolkit, and sign into Azure by clicking the `Sign in to Azure` under the `ACCOUNTS` section from sidebar.</li><li>After you signed in, select a subscription under your account.</li><li>Open the Teams Toolkit and click `Provision in the cloud` from DEVELOPMENT section or open the command palette and select: `Teams: Provision in the cloud`.</li><li>Open the Teams Toolkit and click `Deploy to the cloud` or open the command palette and select: `Teams: Deploy to the cloud`.</li></ul> | <ul><li>Run command `teamsfx account login azure`.</li><li>Run command `teamsfx account set --subscription <your-subscription-id>`.</your-subscription-id></li><li>Run command `teamsfx provision`.</li><li>Run command: `teamsfx deploy`.</li></ul> |
+
+> Note: Provisioning and deployment may incur charges to your Azure Subscription.
+
+## Validate manifest file
+
+To check that your manifest file is valid:
+
+* From Visual Studio Code: open the Teams Toolkit and click `Validate manifest file` or open the command palette and select: `Teams: Validate manifest file`.
+* From TeamsFx CLI: run command `teamsfx validate` in your project directory.
