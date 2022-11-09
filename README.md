@@ -43,9 +43,9 @@ You can hit the `F5` key in VS Code (Teams tookit will auto create new app and s
 `cd server` and `npm run start`
 8. Upload Manifest
     * go to folder `manifest`
-    * copy file `manifest.sample.json` and rename to `manifeest.json`
-    * cd .fx/config/localSetting.json and copy value
-    `{{localSettings.teamsApp.teamsAppId}}`= teamsAppId
+    * copy file `manifest.sample.json` and rename to `manifest.json`
+    * cd .fx/states/state.local.json and copy value
+    `{{fx-resource-appstudio.teamsAppId}}`= teamsAppId
     `{{localSettings.auth.clientId}}` = clientId
     `{{{localSettings.auth.applicationIdUris}}}` = applicationIdUris
     * If you have no localSetting.json, hitting `F5` or you can copy value from your app overview in Portal Azure (teamsAppId can be any value in format xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
