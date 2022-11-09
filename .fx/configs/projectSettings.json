@@ -7,7 +7,8 @@
         "hostType": "Azure",
         "azureResources": [],
         "capabilities": [
-            "Tab"
+            "Tab",
+            "TabSSO"
         ],
         "activeResourcePlugins": [
             "fx-resource-frontend-hosting",
@@ -20,5 +21,35 @@
     },
     "version": "2.0.0",
     "isFromSample": false,
-    "programmingLanguage": "typescript"
+    "programmingLanguage": "typescript",
+    "components": [
+        {
+            "name": "aad-app",
+            "provision": true,
+            "deploy": true
+        },
+        {
+            "hosting": "azure-storage",
+            "name": "teams-tab",
+            "build": true,
+            "provision": true,
+            "folder": "tabs",
+            "sso": true,
+            "deploy": true
+        },
+        {
+            "name": "azure-storage",
+            "connections": [
+                "teams-tab"
+            ],
+            "provision": true
+        },
+        {
+            "name": "identity"
+        },
+        {
+            "name": "simple-auth",
+            "provision": true
+        }
+    ]
 }
