@@ -9,3 +9,7 @@ subscriptionInfo.json
 build
 manifest/manifest.json
 manifestProd/manifest.json
+
+.fx/configs/config.local.json
+.fx/states/state.local.json
+.backup
