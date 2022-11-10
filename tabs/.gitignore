@@ -11,6 +11,6 @@
 
 # misc
 .DS_Store
-.env
+.env.local
 .deployment
-.env.production
+package-lock.json

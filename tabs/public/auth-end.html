@@ -38,11 +38,17 @@
         } else {
           // Success -- return code information to the parent page.
           var redirectUri = location.protocol + "//" + location.host + location.pathname;
+          localStorage.setItem("location", location);
+          localStorage.setItem("location.protocol", location.protocol);
+          localStorage.setItem("location.host", location.host);
+          localStorage.setItem("location.pathname", location.pathname);
+          localStorage.setItem("parentPage", redirectUri);
           var result = JSON.stringify({
             code: hashParams["code"],
             codeVerifier: localStorage.getItem("codeVerifier"),
             redirectUri: redirectUri,
           });
+          localStorage.setItem("result", result);
 
           microsoftTeams.authentication.notifySuccess(result);
         }

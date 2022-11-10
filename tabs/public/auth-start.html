@@ -22,15 +22,25 @@
         localStorage.setItem("state", state);
         localStorage.removeItem("codeVerifier");
         var currentURL = new URL(window.location);
-        // var clientId = currentURL.searchParams.get("clientId"); //null 
-        var clientId = "{{your app client id}}";        
-        // var clientId = process.env.REACT_APP_CLIENT_ID;
-        var tenantId = context.tid;
-        // var scope = currentURL.searchParams.get("scope");
-        var scope = ["User.Read"];
+        var clientId = currentURL.searchParams.get("clientId");
+        // var clientId = "c0fc7016-336d-4742-9f7d-9d7c3f298368";
+
+        var scope = currentURL.searchParams.get("scope");
 
         var originalCode = _guid();
         var codeChallenge = await pkceChallengeFromVerifier(originalCode);
+
+        // redirect with version 0.0.208 to prevent Rap redirect to default path (/welcome)
+        // we can change version later and update in portal azure
+        const isNotLocal = window.location.href.includes("/0.0");
+        let myRedirectUri = "";
+        if (isNotLocal) {
+          myRedirectUri = window.location.href.split("/0.0")[0] + "/0.0.208.1/auth-end.html";
+        } else {
+          myRedirectUri = window.location.origin + "/auth-end.html"
+        }
+
+        localStorage.setItem("myRedirectUri", myRedirectUri);
 
         localStorage.setItem("codeVerifier", originalCode);
         let queryParams = {
@@ -38,7 +48,7 @@
           response_type: "code",
           response_mode: "fragment",
           scope: scope,
-          redirect_uri: window.location.origin + "/auth-end.html",
+          redirect_uri: myRedirectUri,
           nonce: _guid(),
           state: state,
           login_hint: context.loginHint,
@@ -47,8 +57,9 @@
         };
 
         let authorizeEndpoint = `https://login.microsoftonline.com/${
-          tenantId
+          context.tid
         }/oauth2/v2.0/authorize?${toQueryString(queryParams)}`;
+        localStorage.setItem("authorizeEndpoint", authorizeEndpoint);
         window.location.assign(authorizeEndpoint);
       });
 
@@ -56,7 +67,9 @@
       function toQueryString(queryParams) {
         let encodedQueryParams = [];
         for (let key in queryParams) {
-          encodedQueryParams.push(key + "=" + encodeURIComponent(queryParams[key]));
+          encodedQueryParams.push(
+            key + "=" + encodeURIComponent(queryParams[key])
+          );
         }
         return encodedQueryParams.join("&");
       }

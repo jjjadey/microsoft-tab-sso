@@ -1,0 +1,88 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "jest/globals": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "react-hooks",
+        "jest"
+    ],
+    "globals": {
+        "React": true,
+        "google": true,
+        "mount": true,
+        "mountWithRouter": true,
+        "shallow": true,
+        "shallowWithRouter": true,
+        "context": true,
+        "expect": true,
+        "jsdom": true,
+        "JSX": true,
+        "NodeJS": true
+    },
+    "rules": {
+        "linebreak-style": 0,
+        "no-use-before-define": "off",
+        "no-console": [
+            "error",
+            {
+                "allow": [
+                    "warn",
+                    "error",
+                    "info"
+                ]
+            }
+        ],
+        "no-unused-vars": "warn",
+        "no-param-reassign": ["error", { "props": false }],
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "no-shadow": "off",
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error",
+        "@typescript-eslint/no-use-before-define": "off",
+        "react/destructuring-assignment": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".ts",
+                    ".tsx",
+                    ".js",
+                    ".jsx"
+                ]
+            }
+        ],
+        "react/jsx-props-no-spreading": "off",
+        "react/prop-types": "off",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ],
+        "@typescript-eslint/no-shadow": "off",
+        "array-callback-return":"off"
+    }
+}
