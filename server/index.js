@@ -4,6 +4,7 @@ import cors from "cors";
 
 import { INTERACTION_REQUIRED_STATUS_TEXT } from "./constants.js";
 import { getUserProfile } from './userProfileService.js';
+import { getPresence } from './presenceService.js';
 import { getOboAccessToken } from './oboService.js';
 
 dotenv.config();
@@ -26,6 +27,34 @@ app.post('/userProfile', async (req, res) => {
   try {
     const serverSideToken = await getOboAccessToken(tenantId, clientSideToken);
     const userProfile = await getUserProfile(serverSideToken);
+    res.send(userProfile);
+  }
+  catch (error) {
+    if (error === INTERACTION_REQUIRED_STATUS_TEXT) {
+      // If here, Azure AD wants to interact with the user directly, so tell the
+      // client side to display a pop-up auth box
+      console.log('Interaction required');
+      res.status(401).json({ status: 401, statusText: INTERACTION_REQUIRED_STATUS_TEXT });
+    } else {
+      console.log(`Error in /userProfile handling: ${error}`);
+      res.status(500).json({ status: 500, statusText: error })
+    }
+  }
+
+});
+
+app.post('/presence', async (req, res) => {
+  const tenantId = req.body.tenantId;
+  const clientSideToken = req.body.clientSideToken;
+
+  if (!clientSideToken) {
+    res.status(500).send("No Id Token");
+    return
+  }
+
+  try {
+    const serverSideToken = await getOboAccessToken(tenantId, clientSideToken);
+    const userProfile = await getPresence(serverSideToken);
     res.send(userProfile);
   }
   catch (error) {
